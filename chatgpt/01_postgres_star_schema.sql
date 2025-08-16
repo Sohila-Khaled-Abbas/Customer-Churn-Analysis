@@ -46,7 +46,7 @@ CREATE TABLE telecom.stg_fact_customers (
   high_value                  TEXT,
   signup_date                 DATE,
   signup_quarter              TEXT,
-  signup_month                DATE,
+  signup_month                TEXT,
   population                  INT
 );
 
