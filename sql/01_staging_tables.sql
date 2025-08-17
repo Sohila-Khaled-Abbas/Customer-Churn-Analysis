@@ -1,21 +1,50 @@
--- Drop if exists
-DROP TABLE IF EXISTS stg_fact_customers;
-DROP TABLE IF EXISTS stg_dim_zip_code;
-
--- Staging Tables
-CREATE TABLE stg_dim_zip_code (
-    zip_code VARCHAR(10) PRIMARY KEY,
-    city VARCHAR(100),
-    state VARCHAR(50),
-    region VARCHAR(50)
-);
-
-CREATE TABLE stg_fact_customers (
-    customer_id INT PRIMARY KEY,
-    name VARCHAR(100),
-    age INT,
-    gender VARCHAR(10),
-    zip_code VARCHAR(10),
-    join_date DATE,
-    churn_flag BOOLEAN
-);
+-- TELECOM CHURN STAR SCHEMA (Starter)
+-- Staging
+DROP TABLE IF EXISTS telecom.stg_customers;
+CREATE TABLE telecom.stg_customers (
+  customer_id                TEXT PRIMARY KEY,
+  gender                     TEXT,
+  age                        INTEGER,
+  married                    TEXT,
+  number_of_dependents       INTEGER,
+  city                       TEXT,
+  zip_code                   TEXT,
+  latitude                   NUMERIC,
+  longitude                  NUMERIC,
+  number_of_referrals        INTEGER,
+  tenure_in_months           INTEGER,
+  offer                      TEXT,
+  phone_service              TEXT,
+  avg_monthly_long_distance_charges NUMERIC(10,2),
+  multiple_lines             TEXT,
+  internet_service           TEXT,
+  internet_type              TEXT,
+  avg_monthly_gb_download    NUMERIC(10,2),
+  online_security            TEXT,
+  online_backup              TEXT,
+  device_protection_plan     TEXT,
+  premium_tech_support       TEXT,
+  streaming_tv               TEXT,
+  streaming_movies           TEXT,
+  streaming_music            TEXT,
+  unlimited_data             TEXT,
+  contract                   TEXT,
+  paperless_billing          TEXT,
+  payment_method             TEXT,
+  monthly_charges            NUMERIC(10,2),
+  total_charges              NUMERIC(10,2),
+  total_refunds              NUMERIC(12,2),
+  total_extra_data_charges   NUMERIC(12,2),
+  total_long_distance_charges NUMERIC(12,2),
+  total_revenue              NUMERIC(12,2),
+  customer_status            TEXT,
+  churn_category             TEXT,
+  churn_reason               TEXT,
+  churn_flag                 BOOLEAN,
+  new_last_quarter           BOOLEAN,
+  high_value                 BOOLEAN,
+  sign_up_date               DATE,
+  sign_up_quarter            TEXT,
+  sign_up_month              TEXT,
+  zipcode_population         BIGINT       
+  );
