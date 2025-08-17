@@ -19,12 +19,3 @@ CREATE TABLE stg_fact_customers (
     join_date DATE,
     churn_flag BOOLEAN
 );
-
--- Load Data (adjust file paths if needed)
-COPY stg_dim_zip_code
-FROM '/path/to/cleaned_data/Dim_Zip_Code.csv'
-DELIMITER ',' CSV HEADER;
-
-COPY stg_fact_customers
-FROM '/path/to/cleaned_data/Fact_Customers.csv'
-DELIMITER ',' CSV HEADER;
