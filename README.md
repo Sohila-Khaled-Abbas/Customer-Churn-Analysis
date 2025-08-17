@@ -64,6 +64,7 @@ It covers:
 ---
 
 ## 📖 Documentation
+- [Project Report](docs/project_report.md)
 - [Data Dictionary](docs/data_dictionary.md)  
 - [SQL Schema Guide](docs/sql_guide.md)  
 - [Power BI Report Guide](docs/powerbi_guide.md)
