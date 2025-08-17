@@ -70,6 +70,7 @@ Fact_Customers
 
 ### 4. Visualization (Power BI)
 - Connect to PostgreSQL star schema.
+- Run `/sql/04_materialized_views.sql`
 - Create **DAX measures**:
  -- Churn Rate = COUNT(churned) / COUNT(total_customers)
  -- Avg Revenue Loss = SUM(total_charges for churned)

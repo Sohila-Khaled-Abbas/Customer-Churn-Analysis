@@ -1,0 +1,31 @@
+name: Deploy SQL to Postgres
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+    - 'sql/**.sql'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Install psql
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y postgresql-client
+    - name: Apply star schema
+      env:
+        PGHOST: ${{ secrets.PGHOST }}
+        PGUSER: ${{ secrets.PGUSER }}
+        PGPASSWORD: ${{ secrets.PGPASSWORD }}
+        PGDATABASE: ${{ secrets.PGDATABASE }}
+        PGPORT: ${{ secrets.PGPORT }}
+      run: |
+        psql "host=$PGHOST user=$PGUSER password=$PGPASSWORD dbname=$PGDATABASE port=${PGPORT:-5432} sslmode=require" -f sql/01_staging_tables.sql
+        psql "host=$PGHOST user=$PGUSER password=$PGPASSWORD dbname=$PGDATABASE port=${PGPORT:-5432} sslmode=require" -f sql/02_staging_tables.sql
+        psql "host=$PGHOST user=$PGUSER password=$PGPASSWORD dbname=$PGDATABASE port=${PGPORT:-5432} sslmode=require" -f sql/03_business_queries.sql
+        psql "host=$PGHOST user=$PGUSER password=$PGPASSWORD dbname=$PGDATABASE port=${PGPORT:-5432} sslmode=require" -f sql/04_materialized_views.sql
+        psql "host=$PGHOST user=$PGUSER password=$PGPASSWORD dbname=$PGDATABASE port=${PGPORT:-5432} sslmode=require" -f sql/05_permissions.sql
+        psql "host=$PGHOST user=$PGUSER password=$PGPASSWORD dbname=$PGDATABASE port=${PGPORT:-5432} sslmode=require" -f sql/06_refresh_helpers.sql

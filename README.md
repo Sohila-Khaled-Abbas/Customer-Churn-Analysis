@@ -58,7 +58,7 @@ It covers:
 1. Load cleaned datasets into PostgreSQL using scripts in `sql/`.  
 2. Build **staging + star schema** with `01_staging_tables.sql` & `02_star_schema.sql`.  
 3. Run `03_business_queries.sql` for insights.  
-4. Open Power BI → Connect to PostgreSQL → Import `star schema tables`.  
+4. Open Power BI → Connect to PostgreSQL → Import `04_materialized_views.sql`.  
 5. Add measures (DAX) for KPIs.  
 
 ---
@@ -67,7 +67,9 @@ It covers:
 - [Project Report](docs/project_report.md)
 - [Data Dictionary](docs/data_dictionary.md)  
 - [SQL Schema Guide](docs/sql_guide.md)  
+- [DAX Measures](docs/measures_dax.txt)
 - [Power BI Report Guide](docs/powerbi_guide.md)
+- [Report Storytelling](docs/report_storytelling.md)
 - [Power BI Report (PDF)](docs/powerbi_report.pdf)  
 
 ---
