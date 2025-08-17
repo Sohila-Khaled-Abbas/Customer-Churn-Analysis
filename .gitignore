@@ -1,0 +1,45 @@
+# OS / system files
+.DS_Store
+Thumbs.db
+
+# Python / Jupyter cache
+__pycache__/
+*.py[cod]
+*.ipynb_checkpoints/
+
+# Power BI files
+*.pbix
+*.pbit
+*.rsd
+
+# Excel / EDA temp files
+~$*.xls*
+*.tmp
+*.bak
+*.log
+
+# Virtual environments
+.venv/
+env/
+venv/
+
+# SQL client configs
+*.db
+*.sqlitedb
+
+# VSCode / IDE configs
+.vscode/
+.idea/
+
+# Data files (optional, keep raw/cleaned separately tracked)
+raw_data/*.csv
+cleaned_data/*.csv
+
+# Exports
+*.pdf
+*.png
+*.jpg
+
+# Node/npm cache (if used for GitHub Pages)
+node_modules/
+dist/

@@ -1,2 +1,0 @@
-n_total_customers,n_churned_customers,churn_rate,new_customers_last_quarter_approx,high_value_definition_metric,high_value_threshold_q75,high_value_churn_rate,non_high_value_churn_rate
-7043,1869,0.2653698707936959,1051,monthly_charge,89.75,0.33030646992054485,0.2437038439689453
