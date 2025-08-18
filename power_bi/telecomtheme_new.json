@@ -1,0 +1,299 @@
+{
+  "name": "NexaVerse Dashboard Theme",
+  "dataColors": [
+    "#4B6C37",
+    "#C9A540",
+    "#873132",
+    "#A7C957",
+    "#26453c",
+    "#386658",
+    "#4a8774",
+    "#26452c"
+  ],
+  "textClasses": {
+    "callout": {
+      "fontFace": "Segoe UI Bold",
+      "color": "#000000",
+      "fontSize": 30
+    },
+    "title": {
+      "fontFace": "Segoe UI Semibold",
+      "color": "#000000",
+      "fontSize": 12
+    },
+    "header": {
+      "fontFace": "Segoe UI Semibold",
+      "color": "#000000",
+      "fontSize": 12
+    },
+    "label": {
+      "fontFace": "Segoe UI",
+      "color": "#000000",
+      "fontSize": 10
+    },
+    "smallLightLabel": {
+      "color": "#000000",
+      "fontSize": 9
+    },
+    "largeLightLabel": {
+      "color": "#000000",
+      "fontSize": 12
+    },
+    "boldLabel": {
+      "fontFace": "Segoe UI Bold"
+    },
+    "lightLabel": {
+      "color": "#000000"
+    },
+    "smallLabel": {
+      "fontSize": 9
+    },
+    "largeLabel": {
+      "fontSize": 12
+    },
+    "semiboldLabel": {
+      "fontFace": "Segoe UI Semibold"
+    },
+    "largeTitle": {
+      "fontSize": 14
+    }
+  },
+  "visualStyles": {
+    "*": {
+      "*": {
+        "background": [
+          {
+            "color": {
+              "solid": {
+                "color": "#FFFFFF"
+              }
+            }
+          }
+        ],
+        "visualHeader": [
+          {
+            "background": {
+              "solid": {
+                "color": "#FFFFFF"
+              }
+            }
+          }
+        ],
+        "visualTooltip": [
+          {
+            "titleFontColor": {
+              "solid": {
+                "color": "#252423"
+              }
+            },
+            "valueFontColor": {
+              "solid": {
+                "color": "#873132"
+              }
+            },
+            "background": {
+              "solid": {
+                "color": "#FFFFFF"
+              }
+            }
+          }
+        ],
+        "outspace": [
+          {
+            "color": {
+              "solid": {
+                "color": "#F2F2F2"
+              }
+            }
+          }
+        ],
+        "title": [
+          {
+            "text": "",
+            "fontColor": {
+              "solid": {
+                "color": "#000000"
+              }
+            },
+            "background": {
+              "solid": {
+                "color": "#FFFFFF"
+              }
+            },
+            "alignment": "left",
+            "fontSize": 20,
+            "fontFamily": "Segoe UI Semibold",
+            "bold": true
+          }
+        ],
+        "outspacePane": [
+          {
+            "backgroundColor": {
+              "solid": {
+                "color": "#4B6C37"
+              }
+            },
+            "foregroundColor": {
+              "solid": {
+                "color": "#FFFFFF"
+              }
+            },
+            "titleSize": 12,
+            "headerSize": 9,
+            "fontFamily": "Segoe UI"
+          }
+        ],
+        "filterCard": [
+          {
+            "$id": "Applied",
+            "foregroundColor": {
+              "solid": {
+                "color": "#000000"
+              }
+            },
+            "backgroundColor": {
+              "solid": {
+                "color": "#F2F2F2"
+              }
+            },
+            "textSize": 9,
+            "fontFamily": "Segoe UI",
+            "border": false,
+            "inputBoxColor": {
+              "solid": {
+                "color": "#FFFFFF"
+              }
+            }
+          }
+        ]
+      }
+    },
+    "page": {
+      "*": {
+        "settings": [
+          {
+            "name": "Executive Summary"
+          }
+        ],
+        "background": [
+          {
+            "color": {
+              "solid": {
+                "color": "#F2F2F2"
+              }
+            }
+          }
+        ],
+        "outspace": [
+          {
+            "color": {
+              "solid": {
+                "color": "#F2F2F2"
+              }
+            }
+          }
+        ],
+        "outspacePane": [
+          {
+            "backgroundColor": {
+              "solid": {
+                "color": "#4B6C37"
+              }
+            },
+            "foregroundColor": {
+              "solid": {
+                "color": "#FFFFFF"
+              }
+            },
+            "titleSize": 12,
+            "headerSize": 9,
+            "fontFamily": "Segoe UI",
+            "border": false,
+            "checkboxAndApplyColor": {
+              "solid": {
+                "color": "#A7C957"
+              }
+            },
+            "searchTextSize": 10,
+            "inputBoxColor": {
+              "solid": {
+                "color": "#FFFFFF"
+              }
+            }
+          }
+        ],
+        "filterCard": [
+          {
+            "$id": "Available",
+            "foregroundColor": {
+              "solid": {
+                "color": "#000000"
+              }
+            },
+            "backgroundColor": {
+              "solid": {
+                "color": "#F2F2F2"
+              }
+            },
+            "textSize": 9,
+            "fontFamily": "Segoe UI",
+            "border": false,
+            "inputBoxColor": {
+              "solid": {
+                "color": "#FFFFFF"
+              }
+            }
+          }
+        ]
+      }
+    },
+    "barChart": {
+      "*": {
+        "xAxisReferenceLine": [
+          {
+            "$id": "0",
+            "show": false
+          }
+        ],
+        "y1AxisReferenceLine": [
+          {
+            "$id": "0",
+            "show": false
+          }
+        ]
+      }
+    },
+    "card": {
+      "*": {
+        "labels": [
+          {
+            "color": {
+              "solid": {
+                "color": "#FFFFFF"
+              }
+            }
+          }
+        ],
+        "calloutValue": [
+          {
+            "color": {
+              "solid": {
+                "color": "#FFFFFF"
+              }
+            }
+          }
+        ],
+        "background": [
+          {
+            "color": {
+              "solid": {
+                "color": "#4B6C37"
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}
+
