@@ -1,8 +1,9 @@
-***This document defines all the datasets used in the project.***
+# **This document defines all the datasets used in the project.**
 
 ---
 
 ## Dim_Zip_Code
+
 | Column Name | Type | Description         |
 | ----------- | ---- | ------------------- |
 | zip\_code   | INT  | Zip code identifier |
@@ -13,6 +14,7 @@
 ---
 
 ## Fact_Customers
+
 | Column Name  | Type    | Description                      |
 | ------------ | ------- | -------------------------------- |
 | customer\_id | INT     | Unique customer identifier       |
@@ -21,4 +23,3 @@
 | revenue      | DECIMAL | Customer revenue                 |
 | zip\_code    | INT     | Foreign key to Dim\_Zip\_Code    |
 | """          |         |                                  |
-
