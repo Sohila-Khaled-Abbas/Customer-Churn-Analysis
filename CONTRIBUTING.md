@@ -107,4 +107,4 @@
 
 ---
 
-> Thank you for contributing to this project — together we’re making churn analysis more powerful and accessible!
+Thank you for contributing to this project — together we’re making churn analysis more powerful and accessible!
