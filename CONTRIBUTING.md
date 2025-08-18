@@ -97,3 +97,14 @@
 - [dbt SQL Style Guide](https://docs.getdbt.com/docs/collaborate/git/style-guide)
 - [Microsoft Power BI Naming Conventions](https://learn.microsoft.com/en-us/power-bi/guidance/naming-conventions)
 - [Analytics Engineering Best Practices](https://www.locallyoptimistic.com/)
+
+---
+
+## How to Get Help
+
+- Open an Issue for bugs, questions, or feature requests.
+- Tag maintainers in PRs if urgent.
+
+---
+
+> Thank you for contributing to this project — together we’re making churn analysis more powerful and accessible!
