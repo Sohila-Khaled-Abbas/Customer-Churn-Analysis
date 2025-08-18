@@ -1,87 +1,106 @@
-# Customer Churn Analysis
+# Telecom Churn Analytics
 
-## 📌 Project Overview
-This project is an **end-to-end data analytics pipeline** designed to answer critical business questions about **customer churn**.  
-It covers:
-- Data cleaning & staging in PostgreSQL
-- Building a **Star Schema** for analysis
-- Writing SQL queries for business insights
-- Modeling churn drivers with SQL logic
-- Building an **interactive Power BI dashboard**
+This project delivers a complete **data analytics pipeline** for a fictional Telecom company, integrating:  
+
+- **PostgreSQL** (staging, star schema, business queries, materialized views)  
+- **Power BI** (dashboard storytelling, KPIs, churn analysis)  
+- **EDA** (Excel + SQL profiling)  
 
 ---
 
-## 📂 Project Structure
-- **raw_data/** → Original CSV datasets  
-- **cleaned_data/** → Pre-processed datasets (ready for SQL load)  
-- **sql/** → SQL DDL, star schema build, queries, and churn modeling  
-- **EDA/** → Exploratory data analysis in Excel  
-- **docs/** → Documentation, data dictionary, and report exports  
-- **images/** → Dashboard screenshots  
+## Workflow Overview
+
+### 1. Data Layer (PostgreSQL)
+
+- Ingest raw data into **staging** (`01_staging_tables.sql`)  
+- Transform into **star schema** (`02_star_schema.sql`)  
+- Define **business queries** (`03_business_queries.sql`)  
+- Create **materialized views** (`04_materialized_views.sql`) for BI  
+
+### 2. Analytics & EDA
+
+- Excel-based churn analysis (`EDA/churn_analysis.xlsx`)  
+- Profile customers, churn cohorts, and add-on service impacts  
+
+### 3. BI & Storytelling (Power BI)
+
+- Import data in **Import Mode**  
+- Define measures from `docs/measures_dax.txt`  
+- Follow `docs/report_storytelling.md` to create narrative-driven dashboards  
+- Example visuals: churn KPIs, contract comparison, customer profile segmentation  
+
+### 4. CI/CD
+
+- `.github/deploy-sql.yml` automates schema deployment and refresh  
+- Extendable to trigger Power BI Service dataset refresh  
 
 ---
 
-## ⚙️ Tech Stack
-- **PostgreSQL** (Data warehouse + SQL queries)
-- **Excel** (EDA, quick stats)
-- **Power BI** (Data modeling & dashboard visualization)
-- **GitHub** (Version control & collaboration)
+## Business Questions Answered
+
+- What is the churn rate overall and by segment?  
+- What are the profiles of customers who churn vs. stay vs. join?  
+- Which services (online security, tech support) reduce churn risk?  
+- Are high-value customers churning more often?  
+- Which geographies show higher churn patterns?  
 
 ---
 
-## 🔑 Business Questions Answered
-1. What is the **overall churn rate**?  
-2. Which **demographics (age, gender, zip codes)** are most churn-prone?  
-3. How does **contract type / tenure / services used** affect churn?  
-4. What are the **top churn drivers** modeled in SQL?  
+## Screenshots
+
+Here are sample visuals from the dashboard and data model.  
+
+### Power BI Dashboard
+
+![Dashboard Overview](images/dashboard_overview.png)
+
+### Customer Churn by Contract
+
+![Churn by Contract](images/churn_by_contract.png)
+
+### Geo Analysis by ZIP Code
+
+![Geo Churn](images/geo_churn.png)
 
 ---
 
-## 📊 Power BI Dashboard
-- **Page 1 (KPIs Overview)**  
-   - Churn Rate %  
-   - Total Customers  
-   - Active vs. Churned Customers  
-   - Average Tenure  
+## Setup Instructions
 
-- **Page 2 (Churn Drivers)**  
-   - Churn segmented by age group, contract type, and region  
-   - Advanced visuals (decomposition tree, scatter plots)  
+### Step 1 — Database
 
-📷 Example Screenshots:  
-![Dashboard Overview](images/pbix_overview.png)  
-![Churn Drivers](images/churn_drivers.png)  
+```bash
+# Run schema setup
+psql -f sql/01_staging_tables.sql
+psql -f sql/02_star_schema.sql
+psql -f sql/03_business_queries.sql
+psql -f sql/04_materialized_views.sql
+```
 
----
+### Step 2 — Data Load
 
-## 🚀 How to Run
-1. Load cleaned datasets into PostgreSQL using scripts in `sql/`.  
-2. Build **staging + star schema** with `01_staging_tables.sql` & `02_star_schema.sql`.  
-3. Run `03_business_queries.sql` for insights.  
-4. Open Power BI → Connect to PostgreSQL → Import `04_materialized_views.sql`.  
-5. Add measures (DAX) for KPIs.  
+- Import CSVs from `raw_data/` → staging
+- Run profiling (`Profile summary aggregation.csv`)
 
----
+### Step 3 — Power BI
 
-## 📖 Documentation
-- [Project Report](docs/project_report.md)
-- [Data Dictionary](docs/data_dictionary.md)  
-- [SQL Schema Guide](docs/sql_guide.md)  
-- [DAX Measures](docs/measures_dax.txt)
-- [Power BI Report Guide](docs/powerbi_guide.md)
-- [Report Storytelling](docs/report_storytelling.md)
-- [Power BI Report (PDF)](docs/powerbi_report.pdf)  
+- Open Power BI Desktop → Get Data → PostgreSQL → Import Mode
+- Import `fact_customer_snapshot` + materialized views
+- Add measures from `docs/measures_dax.txt`
+- Build visuals per `docs/report_storytelling.md`
+
+### Step 4 — Exports
+
+- Export dashboards to PDF/CSV for stakeholders
+- Curated datasets are already in `cleaned_data/`
 
 ---
 
-## 🏆 Key Learnings
-- How to model a **churn dataset** with SQL (star schema + driver modeling).  
-- Designing an **analytics-ready pipeline** (staging → fact/dim → BI).  
-- Communicating churn insights visually in **Power BI**.  
+## Contributing
+
+See [CONTRIBUTING.md](/CONTRIBUTING.md) for guidelines.
 
 ---
 
-## 👩‍💻 Author
-**Sohila Khaled Galal Abbas**  
-[LinkedIn](https://www.linkedin.com/in/sohilakabbas/)
-*Data Analyst* | *BI Developer* | *Power BI Enthusiast*
+## License
+
+This repo uses the [LICENSE](/LICENSE) file. Data is fictional and provided for educational/portfolio use.
