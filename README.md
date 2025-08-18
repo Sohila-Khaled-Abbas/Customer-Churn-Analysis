@@ -26,7 +26,7 @@ This project delivers a complete **data analytics pipeline** for a fictional Tel
 
 - Import data in **Import Mode**  
 - Define measures from `docs/measures_dax.txt`  
-- Follow `docs/report_storytelling.md` to create narrative-driven dashboards  
+- Follow `docs/dashboard_storytelling_guide.md` to create narrative-driven dashboards  
 - Example visuals: churn KPIs, contract comparison, customer profile segmentation  
 
 ### 4. CI/CD
