@@ -4,7 +4,7 @@ This project delivers a complete **data analytics pipeline** for a fictional Tel
 
 - **PostgreSQL** (staging, star schema, business queries, materialized views)  
 - **Power BI** (dashboard storytelling, KPIs, churn analysis)  
-- **EDA** (Excel + SQL profiling)  
+- **EDA** (Excel + Python Notebook)  
 
 ---
 
