@@ -43,3 +43,8 @@ cleaned_data/*.csv
 # Node/npm cache (if used for GitHub Pages)
 node_modules/
 dist/
+
+# Local database credentials
+.env
+.env.*
+!.env.example
