@@ -1,0 +1,43 @@
+name: Deploy SQL to Postgres
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'sql/**'
+      - '.github/workflows/deploy-sql.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install PostgreSQL client
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y postgresql-client
+
+      - name: Apply database objects
+        env:
+          PGHOST: ${{ secrets.PGHOST }}
+          PGPORT: ${{ secrets.PGPORT }}
+          PGUSER: ${{ secrets.PGUSER }}
+          PGPASSWORD: ${{ secrets.PGPASSWORD }}
+          PGDATABASE: ${{ secrets.PGDATABASE }}
+          PGSSLMODE: require
+        run: |
+          set -euo pipefail
+          export PGPORT="${PGPORT:-5432}"
+
+          psql -v ON_ERROR_STOP=1 -f sql/01_staging_tables.sql
+          psql -v ON_ERROR_STOP=1 -f sql/02_star_schema.sql
+          psql -v ON_ERROR_STOP=1 -f sql/03_business_queries.sql
+          psql -v ON_ERROR_STOP=1 -f sql/04_materialized_views.sql
+          psql -v ON_ERROR_STOP=1 -f sql/05_permissions.sql
+          psql -v ON_ERROR_STOP=1 -f sql/06_refresh_helpers.sql

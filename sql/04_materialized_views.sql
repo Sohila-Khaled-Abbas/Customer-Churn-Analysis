@@ -90,7 +90,7 @@ SELECT
   COUNT(*)::int AS n_customers,
   SUM(churn_flag)::int AS churned,
   AVG(churn_flag::int)::numeric(5,4) AS churn_rate,
-  AVG(monthly_charge)::numeric(10,2) AS avg_monthly_charge
+  AVG(monthly_charges)::numeric(10,2) AS avg_monthly_charge
 FROM fact_customer_snapshot
 GROUP BY CASE WHEN high_value=1 THEN 'High' ELSE 'Standard' END
 ORDER BY churn_rate DESC;

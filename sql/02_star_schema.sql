@@ -1,7 +1,29 @@
--- 2) Star schema: dims + fact
+-- TELECOM CHURN ANALYTICS
+-- 02) Build the reference dimensions and customer-level fact snapshot.
+-- Materialized views are created separately in 04_materialized_views.sql.
 
--- 2.1 Dim: geo
+CREATE SCHEMA IF NOT EXISTS telecom;
+SET search_path = telecom, public;
+
+-- Remove views from both the previous starter build and the current BI layer
+-- before rebuilding the fact table they depend on.
+DROP MATERIALIZED VIEW IF EXISTS telecom.mv_kpis;
+DROP MATERIALIZED VIEW IF EXISTS telecom.mv_churn_by_contract;
+DROP MATERIALIZED VIEW IF EXISTS telecom.mv_churn_by_internet_type;
+DROP MATERIALIZED VIEW IF EXISTS telecom.mv_churn_by_payment_method;
+DROP MATERIALIZED VIEW IF EXISTS telecom.mv_levers_matrix;
+DROP MATERIALIZED VIEW IF EXISTS telecom.mv_churn_by_offer;
+DROP MATERIALIZED VIEW IF EXISTS telecom.mv_value_segment;
+DROP MATERIALIZED VIEW IF EXISTS telecom.mv_retention_targets;
+DROP MATERIALIZED VIEW IF EXISTS telecom.mv_geo_zip;
+DROP MATERIALIZED VIEW IF EXISTS telecom.mv_high_value_churn; -- legacy starter view
+
+DROP TABLE IF EXISTS telecom.fact_customer_snapshot;
 DROP TABLE IF EXISTS telecom.dim_geo;
+DROP TABLE IF EXISTS telecom.dim_customer;
+DROP TABLE IF EXISTS telecom.dim_service;
+
+-- Geography reference
 CREATE TABLE telecom.dim_geo AS
 SELECT DISTINCT
   COALESCE(zip_code, 'UNKNOWN')::text AS zip_code,
@@ -12,8 +34,7 @@ FROM telecom.stg_customers;
 
 ALTER TABLE telecom.dim_geo ADD PRIMARY KEY (zip_code);
 
--- 2.2 Dim: customer
-DROP TABLE IF EXISTS telecom.dim_customer;
+-- Customer profile reference
 CREATE TABLE telecom.dim_customer AS
 SELECT DISTINCT
   customer_id::text,
@@ -25,8 +46,7 @@ FROM telecom.stg_customers;
 
 ALTER TABLE telecom.dim_customer ADD PRIMARY KEY (customer_id);
 
--- 2.3 Dim: service
-DROP TABLE IF EXISTS telecom.dim_service;
+-- Service and commercial descriptors
 CREATE TABLE telecom.dim_service AS
 SELECT DISTINCT
   internet_type,
@@ -39,11 +59,11 @@ SELECT DISTINCT
   offer
 FROM telecom.stg_customers;
 
--- 2.4 Fact: snapshot (compute high_value using p75 of monthly_charge)
-DROP TABLE IF EXISTS telecom.fact_customer_snapshot;
+-- Customer snapshot fact. High value is defined at or above the 75th percentile
+-- of monthly_charges in the staged customer population.
 CREATE TABLE telecom.fact_customer_snapshot AS
-WITH p as (
-  SELECT percentile_cont(0.75) WITHIN GROUP (ORDER BY telecom.stg_customers.monthly_charges) AS p75
+WITH p AS (
+  SELECT percentile_cont(0.75) WITHIN GROUP (ORDER BY monthly_charges) AS p75
   FROM telecom.stg_customers
 )
 SELECT
@@ -63,47 +83,19 @@ SELECT
   s.premium_tech_support,
   s.paperless_billing,
   s.offer
-FROM telecom.stg_customers s;
+FROM telecom.stg_customers AS s;
 
--- Add a surrogate key for the fact table if you want
-ALTER TABLE telecom.fact_customer_snapshot ADD COLUMN id BIGSERIAL PRIMARY KEY;
+ALTER TABLE telecom.fact_customer_snapshot
+  ADD COLUMN id BIGSERIAL PRIMARY KEY;
 
--- 3) Indexes to speed reports
-CREATE INDEX IF NOT EXISTS idx_fact_churn_flag ON telecom.fact_customer_snapshot (churn_flag);
-CREATE INDEX IF NOT EXISTS idx_fact_high_value ON telecom.fact_customer_snapshot (high_value);
-CREATE INDEX IF NOT EXISTS idx_fact_contract ON telecom.fact_customer_snapshot (contract);
-CREATE INDEX IF NOT EXISTS idx_fact_internet_type ON telecom.fact_customer_snapshot (internet_type);
-CREATE INDEX IF NOT EXISTS idx_fact_zip ON telecom.fact_customer_snapshot (zip_code);
-
--- 4) Useful materialized views / pre-aggregations
-
--- 4.1 churn by segment (materialized)
-DROP MATERIALIZED VIEW IF EXISTS telecom.mv_churn_by_contract;
-CREATE MATERIALIZED VIEW telecom.mv_churn_by_contract AS
-SELECT contract,
-       COUNT(*) AS n_customers,
-       AVG(churn_flag::int)::numeric(5,4) AS churn_rate
-FROM telecom.fact_customer_snapshot
-GROUP BY contract
-ORDER BY churn_rate DESC;
-
--- 4.2 churn by internet_type
-DROP MATERIALIZED VIEW IF EXISTS telecom.mv_churn_by_internet_type;
-CREATE MATERIALIZED VIEW telecom.mv_churn_by_internet_type AS
-SELECT internet_type,
-       COUNT(*) AS n_customers,
-       AVG(churn_flag::int)::numeric(5,4) AS churn_rate
-FROM telecom.fact_customer_snapshot
-GROUP BY internet_type
-ORDER BY churn_rate DESC;
-
--- 4.3 high-value churn summary
-DROP MATERIALIZED VIEW IF EXISTS telecom.mv_high_value_churn;
-CREATE MATERIALIZED VIEW telecom.mv_high_value_churn AS
-SELECT high_value,
-       COUNT(*) AS n_customers,
-       AVG(churn_flag::int)::numeric(5,4) AS churn_rate
-FROM telecom.fact_customer_snapshot
-GROUP BY high_value;
-
--- NOTE: refresh later with REFRESH MATERIALIZED VIEW telecom.mv_churn_by_contract;
+-- Indexes used by repeated analytical queries and report filters.
+CREATE INDEX IF NOT EXISTS idx_fact_churn_flag
+  ON telecom.fact_customer_snapshot (churn_flag);
+CREATE INDEX IF NOT EXISTS idx_fact_high_value
+  ON telecom.fact_customer_snapshot (high_value);
+CREATE INDEX IF NOT EXISTS idx_fact_contract
+  ON telecom.fact_customer_snapshot (contract);
+CREATE INDEX IF NOT EXISTS idx_fact_internet_type
+  ON telecom.fact_customer_snapshot (internet_type);
+CREATE INDEX IF NOT EXISTS idx_fact_zip
+  ON telecom.fact_customer_snapshot (zip_code);
